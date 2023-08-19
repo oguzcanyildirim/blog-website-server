@@ -1,8 +1,8 @@
 import express from "express";
 import fs from "fs";
 import { Request, Response } from "express";
-import fileReader from "../_helpers/file-reader";
-import slugify from "../_helpers/slugify";
+import fileReader from "../utils/file-reader";
+import slugify from "../utils/slugify";
 import { BlogPost } from "entities/blog-post";
 
 const router = express.Router();

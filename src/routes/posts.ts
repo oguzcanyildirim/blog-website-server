@@ -1,7 +1,7 @@
 import express from "express";
 import fs from "fs";
 import { Request, Response } from "express";
-import slugify from "../_helpers/slugify";
+import slugify from "../utils/slugify";
 import { BlogPost } from "entities/blog-post";
 
 const router = express.Router();
