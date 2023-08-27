@@ -16,9 +16,9 @@ router.get("/recent", (req: Request, res: Response) => {
       return;
     }
     metadata = JSON.parse(data);
-    metadata.forEach(f => {
-      f.slug = slugify(f.title);
-      f.date = Date.parse(f.date);
+    metadata.forEach((post: BlogPost) => {
+      post.slug = slugify(post.title);
+      post.date = Date.parse(post.date);
     });
     const recent = metadata.sort((a, b) => a.date - b.date).slice(0, 3);
     res.status(200).json(recent);
