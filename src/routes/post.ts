@@ -25,10 +25,10 @@ router.get("/blog/:post", async (req: Request, res: Response) => {
     const data = await fileReader(files);
 
     const fileArr: { file: string; content: string; slug?: string }[] = [];
-    for (let i = 0; i < files.length; i++) {
+    for (let iFile = 0; iFile < files.length; iFile++) {
       const fileObj = {
-        file: files[i],
-        content: data[i],
+        file: files[iFile],
+        content: data[iFile],
       };
       fileArr.push(fileObj);
     }
