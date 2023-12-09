@@ -2,7 +2,7 @@ export interface BlogPost {
     id: number;
     title: string;
     slug: string; // TODO: make it optional
-    date: number;
+    date: string;
     preview: string;
     tags: string[];
     template: string;
