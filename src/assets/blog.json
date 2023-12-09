@@ -1,47 +1,47 @@
 [
     {
-        "title": "Learn about Collections in MongoDB",
-        "date": "3/20/2021",
+        "title": "title1",
+        "date": "3/20/2023",
         "tags": [
-            "mongodb",
-            "nosql"
+            "tag1",
+            "tag2"
         ],
         "template": "learn-mongo-db.html",
-        "image": "./assets/images/mongodb.jpeg",
-        "preview": "MongoDB is becoming one the most versatile and popular databases. I personally really enjoy working with NoSQL databases like MongoDB because I prefer using JSON to store data rather than columns and rows (vanilla SQL)."
+        "image": "./assets/images/img1.jpeg",
+        "preview": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur gravida nunc vitae consequat vehicula. Mauris ut imperdiet massa. Nunc tristique leo arcu, ut scelerisque libero placerat at."
     },
     {
-        "title": "Learn About Components in Angular",
-        "date": "3/22/2021",
+        "title": "title2",
+        "date": "3/22/2023",
         "tags": [
-            "angular",
-            "typescript"
+            "tag1",
+            "tag3"
         ],
         "template": "learn-angular.html",
-        "image": "./assets/images/angular.png",
-        "preview": "New to Angular? Using components allows developers to keep things modular when building projects with Angular. Components are the building blocks in single page applications (SPAs)."
+        "image": "./assets/img2.png",
+        "preview": "New Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur gravida nunc vitae consequat vehicula. Mauris ut imperdiet massa. Nunc tristique leo arcu, ut scelerisque libero placerat at."
     },
     {
-        "title": "Learn the basics of Node.js",
-        "date": "3/25/2021",
+        "title": "title3",
+        "date": "3/25/2023",
         "tags": [
-            "javascript",
-            "nodejs"
+            "tag3",
+            "tag4"
         ],
-        "template": "learn-node-js.html",
-        "image": "./assets/images/nodeJS.png",
-        "preview": "Node.js is a popular choice in today's development environment as a server side scripting language. It allows you to develop your entire application around JavaScript and it's blazing fast!"
+        "template": "template3.html",
+        "image": "./assets/images/img3.png",
+        "preview": "Aliquam maximus mauris sit amet posuere congue. Nunc eget placerat erat. Nunc molestie gravida neque, at accumsan risus pellentesque ac. Ut nec venenatis tortor, mollis accumsan tellus. Quisque vulputate scelerisque nunc, id aliquam lectus posuere in. Quisque convallis eu nisi a rutrum."
     },
     {
-        "title": "Using the File System module",
-        "date": "03/30/2021",
+        "title": "title4",
+        "date": "03/30/2023",
         "tags": [
-            "javascript",
-            "nodejs"
+            "tag1",
+            "tag4"
         ],
-        "image": "./assets/images/nodeJS.png",
-        "template": "file-system.html",
-        "preview": "A tutorial on how to read files using the File System module."
+        "image": "img4.png",
+        "template": "template4.html",
+        "preview": "Sed bibendum euismod hendrerit. In at tellus laoreet, posuere augue et, fringilla felis."
     }
 
 ]
