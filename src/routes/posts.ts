@@ -1,40 +1,40 @@
-import express from "express";
-import fs from "fs";
-import { Request, Response } from "express";
-import slugify from "../utils/slugify";
-import { BlogPost } from "entities/blog-post";
+import express from 'express';
+import { Request, Response } from 'express';
+import { slugify } from '../utils/slugify';
+import { BlogPost } from '../entities/blog-post';
+import { readFileContent } from '../utils/file-reader';
+import { getStaticFileLocation } from '../utils/get-static-file-location';
 
 const router = express.Router();
 
-router.get("/recent", (req: Request, res: Response) => {
-  let metadata: BlogPost[];
+router.get('/recentPosts', async (req: Request, res: Response) => {
+  try {
+    const metadata: BlogPost[] = await readFileContent(getStaticFileLocation());
 
-  fs.readFile(`./dist/blog-client/assets/blog.json`, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    metadata = JSON.parse(data);
     metadata.forEach((post: BlogPost) => {
       post.slug = slugify(post.title);
-      post.date = new Date(post.date).toISOString();;
+      post.date = new Date(post.date).toISOString();
     });
+
     const recent = metadata
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 3);
+
     res.status(200).json(recent);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to read blog posts' });
+  }
 });
 
-router.get("/blog", (req: Request, res: Response) => {
-  fs.readFile(`./dist/blog-client/assets/blog.json`, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    const metadata: BlogPost[] = JSON.parse(data);
+router.get('/postsMetadata', async (req: Request, res: Response) => {
+  try {
+    const metadata: BlogPost[] = await readFileContent(getStaticFileLocation());
     res.status(200).json(metadata);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to read blog posts' });
+  }
 });
 
 export = router;

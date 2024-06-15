@@ -1,28 +1,22 @@
-import express from "express";
-import { promises as fsPromises } from "fs"; // Use promises from fs
-import { Request, Response } from "express";
-import fileReader from "../utils/file-reader";
-import slugify from "../utils/slugify";
-import { BlogPost } from "entities/blog-post";
+import express from 'express';
+import { promises as fsPromises } from 'fs';
+import { Request, Response } from 'express';
+import { getAllFilesFromDirectory, readFileContent, readMultipleFiles } from '../utils/file-reader';
+import { slugify } from '../utils/slugify';
+import { BlogPost } from '../entities/blog-post';
+import { getFilesDirectory, getStaticFileLocation } from '../utils/get-static-file-location';
 
 const router = express.Router();
 
-/**
- * Handles GET requests to retrieve a specific blog post by its slug.
- * Responds with JSON containing the requested blog post content and associated metadata.
- *
- * @param {Request} req The Express request object.
- * @param {Response} res The Express response object.
- */
-router.get("/blog/:post", async (req: Request, res: Response) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  const { params } = req;
-  const postSlug = params.post;
+router.get('/post', async (req: Request, res: Response) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    const postSlug = req.query.name as string;
 
   try {
-    // Read the list of files in the blog pages directory using fsPromises
-    const files = await fsPromises.readdir("./dist/blog-client/app/pages", "utf8");
-    const data = await fileReader(files);
+    // Read the list of files in the blog pages directory
+    const files = await getAllFilesFromDirectory(getFilesDirectory());
+    const filePaths = files.map(file => `${getFilesDirectory()}/${file}`);
+    const data = await readMultipleFiles(filePaths);
 
     const fileArr: { file: string; content: string; slug?: string }[] = [];
     for (let iFile = 0; iFile < files.length; iFile++) {
@@ -34,8 +28,7 @@ router.get("/blog/:post", async (req: Request, res: Response) => {
     }
 
     // Read and parse blog metadata from blog.json
-    const metadataBuffer = await fsPromises.readFile("./dist/blog-client/assets/blog.json", "utf8");
-    const metadata = JSON.parse(metadataBuffer);
+    const metadata: BlogPost[] = await readFileContent(getStaticFileLocation());
 
     // Check if the number of files matches the metadata count
     if (metadata.length === fileArr.length) {
@@ -57,7 +50,7 @@ router.get("/blog/:post", async (req: Request, res: Response) => {
         res.status(200).json({ post, metadata: postMetaData });
       } else {
         // Respond with an error if the post doesn't exist
-        res.json({ status: "FAILED", message: "That post slug doesn't exist." });
+        res.json({ status: 'FAILED', message: "That post slug doesn't exist." });
       }
     } else {
       // Log a message if the metadata count doesn't match
@@ -65,7 +58,7 @@ router.get("/blog/:post", async (req: Request, res: Response) => {
     }
   } catch (err) {
     // Respond with an error if file reading fails
-    res.status(400).json({ status: "FAILED", message: "Failed to read files.", err: err });
+    res.status(400).json({ status: 'FAILED', message: 'Failed to read files.', err: err });
   }
 });
 
