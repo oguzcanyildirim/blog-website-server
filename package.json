@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
-    "build": "tsc",
+    "build": "tsc && cp -r src/assets dist/",
     "lint": "eslint ."
   },
   "dependencies": {
